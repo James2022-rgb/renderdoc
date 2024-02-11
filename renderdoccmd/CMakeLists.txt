@@ -232,6 +232,8 @@ if(ANDROID)
     configure_file(android/Loader.java ${CMAKE_CURRENT_BINARY_DIR}/src/org/renderdoc/renderdoccmd/Loader.java)
     configure_file(android/AndroidManifest.xml ${CMAKE_CURRENT_BINARY_DIR}/AndroidManifest.xml)
     configure_file(android/icon.png ${CMAKE_CURRENT_BINARY_DIR}/res/drawable/icon.png COPYONLY)
+    configure_file(android/vel/${ANDROID_ABI}/libVkLayer_khronos_synchronization2.so ${CMAKE_CURRENT_BINARY_DIR}/vel/${ANDROID_ABI}/libVkLayer_khronos_synchronization2.so COPYONLY)
+    configure_file(android/vel/${ANDROID_ABI}/libVkLayer_khronos_timeline_semaphore.so ${CMAKE_CURRENT_BINARY_DIR}/vel/${ANDROID_ABI}/libVkLayer_khronos_timeline_semaphore.so COPYONLY)
 
     add_custom_command(OUTPUT ${APK_FILE}
                        DEPENDS renderdoc
@@ -243,6 +245,8 @@ if(ANDROID)
                        COMMAND ${CMAKE_COMMAND} -E make_directory bin
                        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:renderdoc> libs/lib/${ANDROID_ABI}/$<TARGET_FILE_NAME:renderdoc>
                        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:renderdoccmd> libs/lib/${ANDROID_ABI}/$<TARGET_FILE_NAME:renderdoccmd>
+                       COMMAND ${CMAKE_COMMAND} -E copy vel/${ANDROID_ABI}/libVkLayer_khronos_synchronization2.so libs/lib/${ANDROID_ABI}/libVkLayer_khronos_synchronization2.so
+                       COMMAND ${CMAKE_COMMAND} -E copy vel/${ANDROID_ABI}/libVkLayer_khronos_timeline_semaphore.so libs/lib/${ANDROID_ABI}/libVkLayer_khronos_timeline_semaphore.so
                        )
     
     if(ENABLE_CUSTOM_WRAP_SCRIPT)
